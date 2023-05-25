@@ -527,6 +527,9 @@
         </metadata-records>
       </connection>
       <aliases enabled='yes' />
+      <column caption='[CovidTime]' datatype='boolean' name='[Calculation_489766488663654400]' role='dimension' type='nominal'>
+        <calculation class='tableau' formula='[YEAR]&gt; 2020' />
+      </column>
       <column aggregation='Avg' datatype='real' name='[Latitude]' role='measure' semantic-role='[Geographical].[Latitude]' type='quantitative' />
       <column aggregation='Avg' datatype='real' name='[Longitude]' role='measure' semantic-role='[Geographical].[Longitude]' type='quantitative' />
       <column datatype='integer' name='[YEAR]' role='dimension' type='quantitative' />
@@ -637,20 +640,19 @@
             <datasource caption='Sheet1 (dataset_almaty_2023)' name='federated.0gyaf8x0xzmm4j12boveu10xa7ny' />
           </datasources>
           <datasource-dependencies datasource='federated.0gyaf8x0xzmm4j12boveu10xa7ny'>
+            <column caption='[CovidTime]' datatype='boolean' name='[Calculation_489766488663654400]' role='dimension' type='nominal'>
+              <calculation class='tableau' formula='[YEAR]&gt; 2020' />
+            </column>
             <column datatype='string' name='[Regions]' role='dimension' type='nominal' />
             <column datatype='integer' name='[YEAR]' role='dimension' type='quantitative' />
             <column-instance column='[price_adj_per_area]' derivation='Avg' name='[avg:price_adj_per_area:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[Calculation_489766488663654400]' derivation='None' name='[none:Calculation_489766488663654400:nk]' pivot='key' type='nominal' />
             <column-instance column='[Regions]' derivation='None' name='[none:Regions:nk]' pivot='key' type='nominal' />
-            <column-instance column='[YEAR]' derivation='None' name='[none:YEAR:qk]' pivot='key' type='quantitative' />
             <column datatype='real' name='[price_adj_per_area]' role='measure' type='quantitative' />
           </datasource-dependencies>
           <aggregation value='true' />
         </view>
-        <style>
-          <style-rule element='mark'>
-            <encoding attr='color' field='[federated.0gyaf8x0xzmm4j12boveu10xa7ny].[none:YEAR:qk]' palette='green_gold_10_0' reverse='true' type='interpolated' />
-          </style-rule>
-        </style>
+        <style />
         <panes>
           <pane selection-relaxation-option='selection-relaxation-allow'>
             <view>
@@ -658,19 +660,12 @@
             </view>
             <mark class='Automatic' />
             <encodings>
-              <color column='[federated.0gyaf8x0xzmm4j12boveu10xa7ny].[none:YEAR:qk]' />
-              <text column='[federated.0gyaf8x0xzmm4j12boveu10xa7ny].[none:YEAR:qk]' />
+              <color column='[federated.0gyaf8x0xzmm4j12boveu10xa7ny].[none:Calculation_489766488663654400:nk]' />
             </encodings>
-            <style>
-              <style-rule element='mark'>
-                <format attr='mark-labels-cull' value='true' />
-                <format attr='mark-labels-show' value='true' />
-              </style-rule>
-            </style>
           </pane>
         </panes>
         <rows>[federated.0gyaf8x0xzmm4j12boveu10xa7ny].[avg:price_adj_per_area:qk]</rows>
-        <cols>[federated.0gyaf8x0xzmm4j12boveu10xa7ny].[none:Regions:nk]</cols>
+        <cols>([federated.0gyaf8x0xzmm4j12boveu10xa7ny].[none:Regions:nk] / [federated.0gyaf8x0xzmm4j12boveu10xa7ny].[none:Calculation_489766488663654400:nk])</cols>
       </table>
       <simple-id uuid='{E8EF87A6-9EBB-4E6C-80D4-637107302094}' />
     </worksheet>
@@ -1158,7 +1153,7 @@
       </cards>
       <simple-id uuid='{97F134C9-FA22-49D1-8593-00799CB5630B}' />
     </window>
-    <window class='worksheet' name='Regions in years part2'>
+    <window class='worksheet' maximized='true' name='Regions in years part2'>
       <cards>
         <edge name='left'>
           <strip size='160'>
@@ -1180,13 +1175,13 @@
         </edge>
         <edge name='right'>
           <strip size='160'>
-            <card pane-specification-id='0' param='[federated.0gyaf8x0xzmm4j12boveu10xa7ny].[none:YEAR:qk]' type='color' />
+            <card pane-specification-id='0' param='[federated.0gyaf8x0xzmm4j12boveu10xa7ny].[none:Calculation_489766488663654400:nk]' type='color' />
           </strip>
         </edge>
       </cards>
       <simple-id uuid='{9A5473B9-FA91-4A09-BB81-69E9283445FF}' />
     </window>
-    <window class='worksheet' maximized='true' name='Sheet 10'>
+    <window class='worksheet' name='Sheet 10'>
       <cards>
         <edge name='left'>
           <strip size='160'>
